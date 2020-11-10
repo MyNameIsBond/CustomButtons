@@ -2,7 +2,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        RadiantButton(text: "Like The Post", image: "heart",startColor: Color.yellow, endColor: Color.red)
+        
+        Button(action: {
+            print("Delete tapped!")
+        }) {
+            HStack {
+                Image(systemName: "trash")
+                    .font(.title)
+                Text("Delete")
+                    .fontWeight(.semibold)
+                    .font(.title)
+            }
+        }
+        .buttonStyle(GradientBackgroundStyle())
     }
 }
 
@@ -26,6 +38,20 @@ struct RadiantButton: View {
         .background(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .topLeading, endPoint: .bottomTrailing))
         .cornerRadius(20)
         .shadow(radius: 10)
+    }
+}
+
+
+struct GradientBackgroundStyle: PrimitiveButtonStyle {
+ 
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .padding()
+            .foregroundColor(.white)
+            .background(LinearGradient(gradient: Gradient(colors: [Color("DarkGreen"), Color("LightGreen")]), startPoint: .leading, endPoint: .trailing))
+            .cornerRadius(40)
+            .padding(.horizontal, 20)
     }
 }
 
