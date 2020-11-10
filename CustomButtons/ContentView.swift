@@ -2,21 +2,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        RadiantButton(startColor: Color.yellow, endColor: Color.red)
+        RadiantButton(text: "Like The Post", image: "heart",startColor: Color.yellow, endColor: Color.red)
     }
 }
 
 
 struct RadiantButton: View {
     
+    var text: String
+    var image: String
     var startColor: Color
     var endColor: Color
     
     var body: some View {
         Button(action: {}) {
             HStack {
-                Image(systemName: "heart").foregroundColor(Color.primary)
-                Text("Like The Post").foregroundColor(Color.primary)
+                Image(systemName: image).foregroundColor(Color.primary)
+                Text(text).foregroundColor(Color.primary)
             }
         }
         .padding(.horizontal)
