@@ -12,9 +12,10 @@ struct ContentView: View {
                 Text("Delete")
                     .fontWeight(.semibold)
                     .font(.title)
+                    
             }
         }
-        .buttonStyle(GradientBackgroundStyle())
+        .buttonStyle(GradientBackgroundStyle(startColor: Color.purple, endColor: Color.orange))
     }
 }
 
@@ -27,7 +28,7 @@ struct RadiantButton: View {
     var endColor: Color
     
     var body: some View {
-        Button(action: {}) {
+        Button(action: ) {
             HStack {
                 Image(systemName: image).foregroundColor(Color.primary)
                 Text(text).foregroundColor(Color.primary)
@@ -42,20 +43,24 @@ struct RadiantButton: View {
 }
 
 
-struct GradientBackgroundStyle: PrimitiveButtonStyle {
+struct GradientBackgroundStyle: ButtonStyle {
  
+    var startColor: Color
+    var endColor: Color
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity)
             .padding()
             .foregroundColor(.white)
-            .background(LinearGradient(gradient: Gradient(colors: [Color("DarkGreen"), Color("LightGreen")]), startPoint: .leading, endPoint: .trailing))
+            .background(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .leading, endPoint: .trailing))
             .cornerRadius(40)
             .padding(.horizontal, 20)
+            .shadow(color: Color.gray, radius: 10)
     }
 }
 
-struct ButtonStyle: View {
+struct DefaultButtons: View {
     var body: some View {
         VStack {
             Button("Plain", action: {
