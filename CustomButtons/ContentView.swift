@@ -9,21 +9,22 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @State var favourite = false
     var body: some View {
         ZStack {
-            Color.background
+            Color.white
             Button(action: {
-                print("Delete tapped!")
+                self.favourite.toggle()
             }) {
                 HStack {
-                    Image(systemName: "trash")
-                        .foregroundColor(Color.white)
-                    Text("Delete")
-                        .foregroundColor(Color.white)
+                    Image(systemName: favourite ? "star.fill" : "star")
+                        .foregroundColor(favourite ? Color.yellow : Color.gray)
+                    Text("Favourite")
+                        .foregroundColor(Color.black)
                 }
-            }.buttonStyle(RoundedCorners(color: Color.orange))
+            }.buttonStyle(RoundedCorners(color: Color.black))
+            .padding()
         }.ignoresSafeArea()
-        
     }
 }
 
@@ -34,11 +35,9 @@ extension Color {
     static let lightShadow = Color(red: 255 / 255, green: 255 / 255, blue: 255 / 255)
     static let darkShadow = Color(red: 163 / 255, green: 177 / 255, blue: 198 / 255)
     static let background = Color(red: 224 / 255, green: 229 / 255, blue: 236 / 255)
-    
 }
 
 extension Color {
-
     static let voffWhite = Color(red: 225 / 255, green: 225 / 255, blue: 225 / 255)
 }
 
@@ -49,7 +48,6 @@ struct neumorphic: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            
             .padding(.horizontal,20)
             .padding(10)
             .background(Color.background)
@@ -62,11 +60,12 @@ struct neumorphic: ButtonStyle {
 }
 
 struct OutlineButton: ButtonStyle {
- 
+    
     var color: Color
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
+            .frame(maxWidth: .infinity)
             .padding(.horizontal, 20)
             .padding(10)
             .border(color, width: 1)
@@ -86,6 +85,7 @@ struct OutlineBoarder: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
+            .frame(maxWidth: .infinity)
             .padding(.horizontal, 20)
             .padding(10)
             .background(configuration.isPressed ? color.opacity(0.5) : color)
@@ -103,9 +103,9 @@ struct RoundedCorners: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .padding(.horizontal,50)
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
             .padding(10)
-            .cornerRadius(20)
             .overlay(
                    RoundedRectangle(cornerRadius: 10)
                        .stroke(color, lineWidth: 1)
@@ -122,7 +122,7 @@ struct GradientBackgroundStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(maxWidth: .infinity)
             .padding()
             .foregroundColor(.white)
             .background(LinearGradient(gradient: Gradient(colors: [startColor, endColor]), startPoint: .leading, endPoint: .trailing).opacity(configuration.isPressed ? 0.5 : 1))
