@@ -4,7 +4,7 @@ struct ContentView: View {
     @State var favourite = false
     var body: some View {
         ZStack {
-            Color.background
+            Color.white
             Button(action: {
                 self.favourite.toggle()
             }) {
@@ -12,10 +12,10 @@ struct ContentView: View {
                     Image(systemName: favourite ? "star.fill" : "star")
                         .foregroundColor(favourite ? Color.yellow : Color.gray)
                     Text("Favourite")
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.white)
                 }
             }
-            .buttonStyle(neumorphic(color: Color.background))
+            .buttonStyle(OutlineBoarder(color: Color.black))
             .padding()
         }.ignoresSafeArea()
     }
