@@ -1,19 +1,10 @@
 import SwiftUI
 
-/*
- lightShadow : rgb(255,255,255)
- DarkShadow: rgb(163,177,198)
- Background: rgb(224,229,236)
- accent color: rgb(163,177,198)
- */
-
-
-
 struct ContentView: View {
     @State var favourite = false
     var body: some View {
         ZStack {
-            Color.white
+            Color.background
             Button(action: {
                 self.favourite.toggle()
             }) {
@@ -23,13 +14,12 @@ struct ContentView: View {
                     Text("Favourite")
                         .foregroundColor(Color.black)
                 }
-            }.buttonStyle(RoundedCorners(color: Color.black))
+            }
+            .buttonStyle(neumorphic(color: Color.background))
             .padding()
         }.ignoresSafeArea()
     }
 }
-
-
 
 
 extension Color {
@@ -38,13 +28,7 @@ extension Color {
     static let background = Color(red: 224 / 255, green: 229 / 255, blue: 236 / 255)
 }
 
-extension Color {
-    static let voffWhite = Color(red: 225 / 255, green: 225 / 255, blue: 225 / 255)
-}
-
-
 struct neumorphic: ButtonStyle {
- 
     var color: Color
     
     func makeBody(configuration: Self.Configuration) -> some View {
@@ -55,15 +39,14 @@ struct neumorphic: ButtonStyle {
             .cornerRadius(5)
             .shadow(color: Color.darkShadow, radius: 3, x: 2, y: 2)
             .shadow(color: Color.lightShadow, radius: 3, x: -2, y: -2)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-                       
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }
 }
 
 struct OutlineButton: ButtonStyle {
     
     var color: Color
-    
+
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
@@ -73,12 +56,10 @@ struct OutlineButton: ButtonStyle {
             .foregroundColor(.white)
             .padding(2)
             .shadow(radius: 10)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
         
     }
 }
-
-
 
 struct OutlineBoarder: ButtonStyle {
  
@@ -94,7 +75,7 @@ struct OutlineBoarder: ButtonStyle {
             .padding(2)
             .border(color, width: 1)
             .shadow(radius: 10)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
     }
 }
 
@@ -111,16 +92,13 @@ struct RoundedCorners: ButtonStyle {
                    RoundedRectangle(cornerRadius: 10)
                        .stroke(color, lineWidth: 1)
                )
-    }
+        }
 }
-
-
 
 struct GradientBackgroundStyle: ButtonStyle {
  
     var startColor: Color
     var endColor: Color
-    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
@@ -133,11 +111,10 @@ struct GradientBackgroundStyle: ButtonStyle {
     }
 }
 
-
-
 struct DefaultButtons: View {
     var body: some View {
         VStack(spacing: 10) {
+            
             Button("Plain", action: {
             }).buttonStyle(PlainButtonStyle())
 
@@ -146,6 +123,7 @@ struct DefaultButtons: View {
 
             Button("Default", action: {
             }).buttonStyle(DefaultButtonStyle())
+            
         }
     }
 }
